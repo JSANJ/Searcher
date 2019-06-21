@@ -1,4 +1,4 @@
-searchPhrases = ['swagger']
+searchPhrase = 'swagger'
 replaceWith = None #None or string
 # TO DO add NOT_PHRASES
 
@@ -19,43 +19,18 @@ MUST_HAVE = None #None or array, when not None, only records answer when at leas
 import os
 RESULTS = []
 RESULTS_UNIQUE = []
-def isInArray(searchPhrases,lines,path):
-    for searchPhrase in searchPhrases:
-        if searchPhrase in lines[i]:
-            if validMustHave(path):
-                return True
-    return False
-def scanPhraseArray(searchPhrases,lines,path): #OR
-    for searchPhrase in searchPhrases:
-        if searchPhrase in lines[i]:
-            if validMustHave(path): 
-                if not path in RESULTS_UNIQUE:
-                    RESULTS_UNIQUE.append(path)
-                # TO DO, replace that line and write it
-                RESULTS.append("FOUND IN %d:%s"%(i+1,path))
-def scanPhrases(searchPhrases,lines,path):
-    if isinstance(searchPhrases[0], str): #array of strings #OR mode
-        scanPhraseArray(serachPhrases, lines,path,mode)
-    elif isinstance(searchPhrases[0],list) #array of arrays, AND mode
-        valid = True
-        for arr in searchPhrases:
-            if !isInArray(arr,lines,path):
-                valid = False
-        if valid:
-            for arr in searchPhrases:
-                scanPhrase(arr,lines,path,"OR")
-    # OR
+
 def checkFile(path):
     try: #try to open the file (works for text and script files, but not png, video, etc.)
         f = open(path,'r')
         lines = f.readlines()
         for i in range(len(lines)):
-            for searchPhrase in searchPhrases: # AND
-                if isinstance(searchPhrase,str):
-                    scanPhrase(searchPhrase,lines,path)
-                elif isinstance(searchPhrase,list): #OR
-                    
-                    
+            if searchPhrase in lines[i]:
+                if validMustHave(path): 
+                    if not path in RESULTS_UNIQUE:
+                        RESULTS_UNIQUE.append(path)
+                    # TO DO, replace that line and write it
+                    RESULTS.append("FOUND IN %d:%s"%(i+1,path))
         f.close()
     except Exception as e:
         pass
